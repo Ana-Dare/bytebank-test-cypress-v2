@@ -11,13 +11,14 @@
 .janela__modal {
   position: fixed;
   z-index: 1;
-  padding: 64px;
+  padding: 1rem;
   background: #e4ede3;
   box-shadow: 4px 4px 24px -4px rgba(0, 0, 0, 0.15);
   border-radius: 16px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-sizing: border-box;
 }
 
 .fechar__modal {
@@ -34,7 +35,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 589px;
+  width: 500px;
 }
 
 .modal__descricao {
@@ -46,7 +47,7 @@
 
 .modal__container img {
   width: 325px;
-  height: 222px;
+  height: 100px;
 }
 
 .modal__container span {
