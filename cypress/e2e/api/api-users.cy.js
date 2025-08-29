@@ -28,7 +28,7 @@ describe('Realizando requisições para api', () => {
       expect(response.body).to.eq('Not Found');
     });
   });
-  context('Intercepitando solicitações', () => {
+  context('Interceptando solicitações de rede', () => {
     it('Deve fazer a interceptação do POST users/login', () => {
       cy.intercept('POST', 'users/login').as('loginRequest');
       cy.login('neilton@alura.com', '123456');
@@ -45,8 +45,40 @@ describe('Realizando requisições para api', () => {
 
       cy.getByData('titulo-boas-vindas').should(
         'contain.text',
-        'bem vindo de volta!'
+        'Bem vindo de volta!'
       );
+    });
+  });
+  it('Deve permitir o usuário editar suas informações', () => {
+    const usuario = {
+      nome: 'Marcos Vinicius Neves',
+      senha: '123456',
+    };
+    cy.request({
+      method: 'PUT',
+      url: 'http://localhost:8000/users/c691fd15-dcd5-4f24-89da-cdfa3cef9d67',
+      body: usuario,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.nome).to.eq(usuario.nome);
+      expect(response.body.senha).to.eq(usuario.senha);
+    });
+  });
+
+  it('Retorna erro para usuario inválido', () => {
+    const usuario = {
+      nome: 'Usuario invalido',
+      senha: '123456',
+    };
+    cy.request({
+      method: 'PUT',
+      url: 'http://localhost:8000/users/usuarioinvalido',
+      body: usuario,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(404);
+      expect(response.body).to.eq('Not Found');
     });
   });
 });
