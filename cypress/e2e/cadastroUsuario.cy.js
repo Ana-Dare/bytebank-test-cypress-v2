@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import { faker } from '@faker-js/faker';
 
 describe('Teste cadastro de ususário', () => {
   const usuario = {
