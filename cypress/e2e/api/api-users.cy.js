@@ -81,4 +81,19 @@ describe('Realizando requisições para api', () => {
       expect(response.body).to.eq('Not Found');
     });
   });
+
+  context('Realizando login via api', () => {
+    it('Deve permitir o loginde ana', () => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:8000/users/login',
+        body: Cypress.env(),
+      }).then((resposta) => {
+        expect(resposta.status).to.eq(200);
+        expect(resposta.body).is.not.empty;
+        expect(resposta.body.user).to.have.property('nome');
+        expect(resposta.body.user.nome).to.be.equal('ana laura');
+      });
+    });
+  });
 });
